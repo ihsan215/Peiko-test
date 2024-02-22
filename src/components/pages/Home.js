@@ -15,6 +15,7 @@ import Advertisment from "../views/Advertisment";
 import Step from "../views/Step";
 import Roadmap from "../views/Roadmap";
 import { SERVER_URL } from "../../constants/env";
+import { useWeb3Modal } from "@web3modal/wagmi/react";
 const pair = [
   { name: "BTC", percent: 3.19763724, price: 57832.47921786725 },
   { name: "BTC", percent: 3.19763724, price: 57832.47921786725 },
@@ -26,7 +27,7 @@ const pair = [
 function Home() {
   const { t, i18n } = useTranslation();
   const [coinData, setCoinData] = useState(pair);
-
+  const { open } = useWeb3Modal();
   const stepData = [
     {
       picUrl: "/assets/img/step1.png",
@@ -87,6 +88,7 @@ function Home() {
   return (
     <div>
       <Main coinData={coinData} />
+      <w3m-button />
       <Mark />
       <Advertisment />
       <Step />
