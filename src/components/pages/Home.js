@@ -16,6 +16,8 @@ import Step from "../views/Step";
 import Roadmap from "../views/Roadmap";
 import { SERVER_URL } from "../../constants/env";
 import { useWeb3Modal } from "@web3modal/wagmi/react";
+import { useEthPrice } from "use-eth-price";
+
 const pair = [
   { name: "BTC", percent: 3.19763724, price: 57832.47921786725 },
   { name: "BTC", percent: 3.19763724, price: 57832.47921786725 },
@@ -28,6 +30,7 @@ function Home() {
   const { t, i18n } = useTranslation();
   const [coinData, setCoinData] = useState(pair);
   const { open } = useWeb3Modal();
+  const { ethPrice, loading, error } = useEthPrice("usd");
   const stepData = [
     {
       picUrl: "/assets/img/step1.png",
@@ -82,12 +85,14 @@ function Home() {
       console.log(error);
     }
   };
+
   useEffect(() => {
     fetchData();
   }, []);
   return (
     <div>
       <Main coinData={coinData} />
+      {ethPrice && <h1>The price of ETH is: {ethPrice} USD</h1>}
       <w3m-button />
       <Mark />
       <Advertisment />
